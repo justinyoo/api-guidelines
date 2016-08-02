@@ -1,5 +1,8 @@
-# Microsoft REST API Guidelines
-## Microsoft REST API Guidelines Working Group
+<a name="microsoft-rest-api-guidelines-23"></a>
+# 마이크로소프트 REST API 가이드라인 2.3
+
+<a name="microsoft-rest-api-guidelines-working-group"></a>
+## 마이크로소프트 REST API 가이드라인 워킹 그룹
 
  | | |
 ---------------------------- | -------------------------------------- | ----------------------------------------
@@ -8,26 +11,30 @@ Mark Russinovich (CTO Azure) | Steve Lucco (Technical Fellow, DevDiv) | Murali K
 Rob Howard (ASG)             | Peter Torr  (OSG)                      | Chris Mullins (ASG)
 
 <div style="font-size:150%">
-Document editors: John Gossman (C+E), Chris Mullins (ASG), Gareth Jones (ASG), Rob Dolin (C+E), Mark Stafford (C+E)<br/>
+편집진: John Gossman (C+E), Chris Mullins (ASG), Gareth Jones (ASG), Rob Dolin (C+E), Mark Stafford (C+E)<br/>
 </div>
 
 
+<a name="microsoft-rest-api-guidelines"></a>
+# 마이크로소프트 REST API 가이드라인
 
-# Microsoft REST API Guidelines
-## 1 Abstract
-The Microsoft REST API Guidelines, as a design principle, encourages application developers to have resources accessible to them via a RESTful HTTP interface. To provide the smoothest possible experience for developers on platforms following the Microsoft REST API Guidelines, REST APIs SHOULD follow consistent design guidelines to make using them easy and intuitive.  
+<a name="1-abstract"></a>
+## 1 요약
 
-This document establishes the guidelines Microsoft REST APIs SHOULD follow so RESTful interfaces are developed consistently.
+설계 원칙으로서 이 마이크로소프트 REST API 가이드라인은 애플리케이션 개발자들이 리소스를 개발할 때 RESTful HTTP 인터페이스를 통해 접근하기 쉽게 만드는 것을 장려한다. 가능한 한 편안한 개발 경험을 제공하기 위해서라면 REST API는 쉽고 직관적이어야 하며 이는 일관적인 설계 가이드라인을 따르는 것이 좋다.
 
-## 2 Table of contents
+이 문서는 마이크로소프트에서 제공하는 REST API가 지켜야 하는 가이드라인을 정립한다. 이를 통해 RESTful 인터페이스를 일관적으로 개발할 수 있게 한다.
+
+<a name="2-table-of-contents"></a>
+## 2 목차
 <!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Microsoft REST API Guidelines 2.3](#microsoft-rest-api-guidelines-23)
-	- [Microsoft REST API Guidelines Working Group](#microsoft-rest-api-guidelines-working-group)
-- [Microsoft REST API Guidelines](#microsoft-rest-api-guidelines)
-	- [1 Abstract](#1-abstract)
-	- [2 Table of contents](#2-table-of-contents)
-	- [3 Introduction](#3-introduction)
+- [마이크로소프트 REST API 가이드라인 2.3](#microsoft-rest-api-guidelines-23)
+	- [마이크로소프트 REST API 가이드라인 워킹 그룹](#microsoft-rest-api-guidelines-working-group)
+- [마이크로소프트 REST API 가이드라인](#microsoft-rest-api-guidelines)
+	- [1 요약](#1-abstract)
+	- [2 목차](#2-table-of-contents)
+	- [3 소개](#3-introduction)
 		- [3.1 Recommended reading](#31-recommended-reading)
 	- [4    Interpreting the guidelines](#4-interpreting-the-guidelines)
 		- [4.1    Application of the guidelines](#41-application-of-the-guidelines)
@@ -109,7 +116,9 @@ This document establishes the guidelines Microsoft REST APIs SHOULD follow so RE
 
 <!-- /TOC -->
 
-## 3 Introduction
+<a name="3-introduction"></a>
+## 3 소개
+
 Developers access most Microsoft Cloud Platform resources via HTTP interfaces. Although each service typically provides language-specific frameworks to wrap their APIs, all of their operations eventually boil down to HTTP requests. Microsoft must support a wide range of clients and services and cannot rely on rich frameworks being available for every development environment. Thus a goal of these guidelines is to ensure Microsoft REST APIs can be easily and consistently consumed by any client with basic HTTP support.
 
 To provide the smoothest possible experience for developers, it's important to have these APIs follow consistent design guidelines, thus making using them easy and intuitive. This document establishes the guidelines to be followed by Microsoft REST API developers for developing such APIs consistently.
