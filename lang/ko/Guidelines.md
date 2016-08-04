@@ -27,92 +27,92 @@ Rob Howard (ASG)             | Peter Torr  (OSG)                      | Chris Mu
 
 <a name="2-table-of-contents"></a>
 ## 2 목차
+
 <!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [마이크로소프트 REST API 가이드라인 2.3](#microsoft-rest-api-guidelines-23)
-	- [마이크로소프트 REST API 가이드라인 워킹 그룹](#microsoft-rest-api-guidelines-working-group)
+  - [마이크로소프트 REST API 가이드라인 워킹 그룹](#microsoft-rest-api-guidelines-working-group)
 - [마이크로소프트 REST API 가이드라인](#microsoft-rest-api-guidelines)
-	- [1 요약](#1-abstract)
-	- [2 목차](#2-table-of-contents)
-	- [3 소개](#3-introduction)
-		- [3.1 Recommended reading](#31-recommended-reading)
-	- [4    Interpreting the guidelines](#4-interpreting-the-guidelines)
-		- [4.1    Application of the guidelines](#41-application-of-the-guidelines)
-		- [4.2    Guidelines for existing services and versioning of services](#42-guidelines-for-existing-services-and-versioning-of-services)
-		- [4.3    Requirements language](#43-requirements-language)
-		- [4.4    License](#44-license)
-	- [5 Taxonomy](#5-taxonomy)
-		- [5.1    Errors](#51-errors)
-		- [5.2    Faults](#52-faults)
-		- [5.3    Latency](#53-latency)
-		- [5.4    Time to complete](#54-time-to-complete)
-		- [5.5    Long running API faults](#55-long-running-api-faults)
-	- [6    Client guidance](#6-client-guidance)
-		- [6.1    Ignore rule](#61-ignore-rule)
-		- [6.2    Variable order rule](#62-variable-order-rule)
-		- [6.3    Silent fail rule](#63-silent-fail-rule)
-	- [7    Consistency fundamentals](#7-consistency-fundamentals)
-		- [7.1    URL structure](#71-url-structure)
-		- [7.2    URL length](#72-url-length)
-		- [7.3    Canonical identifier](#73-canonical-identifier)
-		- [7.4    Supported methods](#74-supported-methods)
-		- [7.5    Standard request headers](#75-standard-request-headers)
-		- [7.6    Standard response headers](#76-standard-response-headers)
-		- [7.7    Custom headers](#77-custom-headers)
-		- [7.8    Specifying headers as query parameters](#78-specifying-headers-as-query-parameters)
-		- [7.9    PII parameters](#79-pii-parameters)
-		- [7.10   Response formats](#710-response-formats)
-		- [7.11   HTTP Status Codes](#711-http-status-codes)
-		- [7.12   Client library optional](#712-client-library-optional)
-	- [8    CORS](#8-cors)
-		- [8.1    Client guidance](#81-client-guidance)
-		- [8.2    Service guidance](#82-service-guidance)
-	- [9    Collections](#9-collections)
-		- [9.1    Item keys](#91-item-keys)
-		- [9.2    Serialization](#92-serialization)
-		- [9.3    Collection URL patterns](#93-collection-url-patterns)
-		- [9.4    Big collections](#94-big-collections)
-		- [9.5    Changing collections](#95-changing-collections)
-		- [9.6    Sorting collections](#96-sorting-collections)
-		- [9.7    Filtering](#97-filtering)
-		- [9.8    Pagination](#98-pagination)
-		- [9.9    Compound collection operations](#99-compound-collection-operations)
-	- [10    Delta queries](#10-delta-queries)
-		- [10.1    Delta links](#101-delta-links)
-		- [10.2    Entity representation](#102-entity-representation)
-		- [10.3    Obtaining a delta link](#103-obtaining-a-delta-link)
-		- [10.4    Contents of a delta link response](#104-contents-of-a-delta-link-response)
-		- [10.5    Using a delta link](#105-using-a-delta-link)
-	- [11    JSON standardizations](#11-json-standardizations)
-		- [11.1    JSON formatting standardization for primitive types](#111-json-formatting-standardization-for-primitive-types)
-		- [11.2    Guidelines for dates and times](#112-guidelines-for-dates-and-times)
-		- [11.3    JSON serialization of dates and times](#113-json-serialization-of-dates-and-times)
-		- [11.4    Durations](#114-durations)
-		- [11.5    Intervals](#115-intervals)
-		- [11.6    Repeating intervals](#116-repeating-intervals)
-	- [12    Versioning](#12-versioning)
-		- [12.1    Versioning formats](#121-versioning-formats)
-		- [12.2    When to version](#122-when-to-version)
-		- [12.3    Definition of a breaking change](#123-definition-of-a-breaking-change)
-	- [13    Long running operations](#13-long-running-operations)
-		- [13.1    Resource based long running operations (RELO)](#131-resource-based-long-running-operations-relo)
-		- [13.2    Stepwise long running operations](#132-stepwise-long-running-operations)
-		- [13.3    Retention policy for operation results](#133-retention-policy-for-operation-results)
-	- [14    Push notifications via webhooks](#14-push-notifications-via-webhooks)
-		- [14.1    Scope](#141-scope)
-		- [14.2    Principles](#142-principles)
-		- [14.3    Types of subscriptions](#143-types-of-subscriptions)
-		- [14.4    Call sequences](#144-call-sequences)
-		- [14.5    Verifying subscriptions](#145-verifying-subscriptions)
-		- [14.6    Receiving notifications](#146-receiving-notifications)
-		- [14.7    Managing subscriptions programmatically](#147-managing-subscriptions-programmatically)
-		- [14.8    Security](#148-security)
-	- [15    Unsupported requests](#15-unsupported-requests)
-		- [15.1    Essential guidance](#151-essential-guidance)
-		- [15.2    Feature allow list](#152-feature-allow-list)
-	- [16     Appendix](#16-appendix)
-		- [16.1    Sequence diagram notes](#161-sequence-diagram-notes)
-	
+  - [1 요약](#1-abstract)
+  - [2 목차](#2-table-of-contents)
+  - [3 소개](#3-introduction)
+    - [3.1 추천 문서](#31-recommended-reading)
+  - [4 가이드라인 해석](#4-interpreting-the-guidelines)
+    - [4.1 가이드라인 적용](#41-application-of-the-guidelines)
+    - [4.2 기존 서비스와 서비스 버전 관리를 위한 가이드라인](#42-guidelines-for-existing-services-and-versioning-of-services)
+    - [4.3 요구 언어](#43-requirements-language)
+    - [4.4 라이센스](#44-license)
+  - [5 Taxonomy](#5-taxonomy)
+    - [5.1 Errors](#51-errors)
+    - [5.2 Faults](#52-faults)
+    - [5.3 Latency](#53-latency)
+    - [5.4 Time to complete](#54-time-to-complete)
+    - [5.5 Long running API faults](#55-long-running-api-faults)
+  - [6 Client guidance](#6-client-guidance)
+    - [6.1 Ignore rule](#61-ignore-rule)
+    - [6.2 Variable order rule](#62-variable-order-rule)
+    - [6.3 Silent fail rule](#63-silent-fail-rule)
+  - [7 Consistency fundamentals](#7-consistency-fundamentals)
+    - [7.1 URL structure](#71-url-structure)
+    - [7.2 URL length](#72-url-length)
+    - [7.3 Canonical identifier](#73-canonical-identifier)
+    - [7.4 Supported methods](#74-supported-methods)
+    - [7.5 Standard request headers](#75-standard-request-headers)
+    - [7.6 Standard response headers](#76-standard-response-headers)
+    - [7.7 Custom headers](#77-custom-headers)
+    - [7.8 Specifying headers as query parameters](#78-specifying-headers-as-query-parameters)
+    - [7.9 PII parameters](#79-pii-parameters)
+    - [7.10 Response formats](#710-response-formats)
+    - [7.11 HTTP Status Codes](#711-http-status-codes)
+    - [7.12 Client library optional](#712-client-library-optional)
+  - [8 CORS](#8-cors)
+    - [8.1 Client guidance](#81-client-guidance)
+    - [8.2 Service guidance](#82-service-guidance)
+  - [9 Collections](#9-collections)
+    - [9.1 Item keys](#91-item-keys)
+    - [9.2 Serialization](#92-serialization)
+    - [9.3 Collection URL patterns](#93-collection-url-patterns)
+    - [9.4 Big collections](#94-big-collections)
+    - [9.5 Changing collections](#95-changing-collections)
+    - [9.6 Sorting collections](#96-sorting-collections)
+    - [9.7 Filtering](#97-filtering)
+    - [9.8 Pagination](#98-pagination)
+    - [9.9 Compound collection operations](#99-compound-collection-operations)
+  - [10 Delta queries](#10-delta-queries)
+    - [10.1 Delta links](#101-delta-links)
+    - [10.2 Entity representation](#102-entity-representation)
+    - [10.3 Obtaining a delta link](#103-obtaining-a-delta-link)
+    - [10.4 Contents of a delta link response](#104-contents-of-a-delta-link-response)
+    - [10.5 Using a delta link](#105-using-a-delta-link)
+  - [11 JSON standardizations](#11-json-standardizations)
+    - [11.1 JSON formatting standardization for primitive types]  (#111-json-formatting-standardization-for-primitive-types)
+    - [11.2 Guidelines for dates and times]  (#112-guidelines-for-dates-and-times)
+    - [11.3 JSON serialization of dates and times]  (#113-json-serialization-of-dates-and-times)
+    - [11.4 Durations](#114-durations)
+    - [11.5 Intervals](#115-intervals)
+    - [11.6 Repeating intervals](#116-repeating-intervals)
+  - [12 Versioning](#12-versioning)
+    - [12.1 Versioning formats](#121-versioning-formats)
+    - [12.2 When to version](#122-when-to-version)
+    - [12.3 Definition of a breaking change](#123-definition-of-a-breaking-change)
+  - [13 Long running operations](#13-long-running-operations)
+    - [13.1 Resource based long running operations (RELO)](#131-resource-based-long-running-operations-relo)
+    - [13.2 Stepwise long running operations](#132-stepwise-long-running-operations)
+    - [13.3 Retention policy for operation results](#133-retention-policy-for-operation-results)
+  - [14 Push notifications via webhooks]  (#14-push-notifications-via-webhooks)
+    - [14.1 Scope](#141-scope)
+    - [14.2 Principles](#142-principles)
+    - [14.3 Types of subscriptions](#143-types-of-subscriptions)
+    - [14.4 Call sequences](#144-call-sequences)
+    - [14.5 Verifying subscriptions](#145-verifying-subscriptions)
+    - [14.6 Receiving notifications](#146-receiving-notifications)
+    - [14.7 Managing subscriptions programmatically](#147-managing-subscriptions-programmatically)
+    - [14.8 Security](#148-security)
+  - [15 Unsupported requests](#15-unsupported-requests)
+    - [15.1 Essential guidance](#151-essential-guidance)
+    - [15.2 Feature allow list](#152-feature-allow-list)
+  - [16 Appendix](#16-appendix)
+    - [16.1 Sequence diagram notes](#161-sequence-diagram-notes)
 
 <!-- /TOC -->
 
@@ -133,35 +133,52 @@ Rob Howard (ASG)             | Peter Torr  (OSG)                      | Chris Mu
 
 이 가이드라인은 위와 같은 것들을 이룩할 수 있다.
 
-> *참고: 이 가이드라인은 REST 아키텍처 스타일에 맞게 서비스를 만들고자 한다. 물론 서비스를 개발하는데 있어서 굳이 REST가 갖는 제약사항까지 따를 필요는 없다. 이 문서 전체를 통해 쓰인 "REST"라는 용어는 이론에 충실한 REST 보다는 좀 더 REST가 보여주는 철학에 가깝다.
+*참고: 이 가이드라인은 REST 아키텍처 스타일에 맞게 서비스를 만들고자 한다. 물론 서비스를 개발하는데 있어서 굳이 REST가 갖는 제약사항까지 따를 필요는 없다. 이 문서 전체를 통해 쓰인 "REST"라는 용어는 아래 언급할 책에서 다루는 REST 보다는 좀 더 REST가 보여주는 철학에 가깝다.*
 
 
-### 3.1 Recommended reading
-Understanding the philosophy behind the REST Architectural Style is recommended for developing good HTTP-based services. If you are new to RESTful design, here are some good resources:
+<a name="31-recommended-reading"></a>
+### 3.1 추천 문서
 
-[REST on Wikipedia][rest-on-wikipedia] -- Overview of common definitions and core ideas behind REST.
+좋은 HTTP 기반 서비스를 개발하기 위해서는 REST 아키텍처 스타일 이면의 철학을 이해하면 좋다. 만약 RESTful 설계가 낯설다면 읽어볼 만한 좋은 글이 몇가지 있다.
 
-[REST Dissertation][fielding] -- The chapter on REST in Roy Fielding's dissertation on Network Architecture, "Architectural Styles and the Design of Network-based Software Architectures"
 
-[RFC 7231][rfc-7231] -- Defines the specification for HTTP/1.1 semantics, and is considered the authoritative resource.
+[위키피디아 REST 항목][rest-on-wikipedia] -- REST 이면의 핵심 사상과 공통적인 정의에 대한 정리.
 
-[REST in Practice][rest-in-practice] -- Book on the fundamentals of REST.
+[REST 논문][fielding] -- 네트워크 아키텍처에 대해 Roy Fielding이 쓴 논문인 "아키텍처 스타일과 네트워크 기반 아키텍처 설계" 에서 REST 관련 챕터.
 
-## 4 Interpreting the guidelines
-### 4.1 Application of the guidelines
-These guidelines are applicable to any REST API exposed publicly by Microsoft or any partner service. Private or internal APIs SHOULD also try to follow these guidelines because internal services tend to eventually be exposed publicly.  Consistency is valuable to not only external customers but also internal service consumers, and these guidelines offer best practices useful for any service.
+[RFC 7231 문서][rfc-7231] -- 공신력 있는 리소스로서 HTTP/1.1 시맨틱 관련 사양에 대한 정리.
 
-There are legitimate reasons for exemption from these guidelines. Obviously a REST service that implements or must interoperate with some externally defined REST API must be compatible with that API and not necessarily these guidelines. Some services MAY also have special performance needs that require a different format, such as a binary protocol.
+[REST 실무][rest-in-practice] -- REST 기초에 관한 책.
 
-### 4.2 Guidelines for existing services and versioning of services
-We do not recommend making a breaking change to a service that pre-dates these guidelines simply for compliance sake. The service SHOULD try to become compliant at the next version release when compatibility is being broken anyway. When a service adds a new API, that API SHOULD be consistent with the other APIs of the same version. So if a service was written against version 1.0 of the guidelines, new APIs added incrementally to the service SHOULD also follow version 1.0. The service can then upgrade to align with the latest version of the guidelines at the service's next major release.
 
-### 4.3 Requirements language
-The keywords "MUST," "MUST NOT," "REQUIRED," "SHALL," "SHALL NOT," "SHOULD," "SHOULD NOT," "RECOMMENDED," "MAY," and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt). 
+<a name="4-interpreting-the-guidelines"></a>
+## 4 가이드라인 해석
 
-### 4.4 License
+<a name="41-application-of-the-guidelines"></a>
+### 4.1 가이드라인 적용
 
-This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+이 가이드라인은 마이크로소프트 또는 다른 제휴 서비스가 제공하는 모든 공개 API에 적용 가능하다. 사설 API 또는 내부 API 역시도 이 가이드라인을 따라야 한다(SHOULD). 그 이유는 내부 API 역시도 결국 언젠가는 공개 API로 바뀌기 때문이다. 일관성은 비단 외부 고객을 위해서만 중요한 것이 아니라 내부 고객에게도 중요한 가치가 된다. 따라서 이 가이드라인은 어떤 형태의 서비스라 하더라도 적용 가능한 최고 실무 사례를 제공한다.
+
+물론 이 가이드라인에도 예외 사항은 있다. REST 서비스 외부에서 만들어진 REST API를 바탕으로 구현한다거나 외부 REST API와 호환성을 유지하기 위해서는 그쪽에 맞춰야하고 그럴 경우에는 이 가이드라인을 굳이 따를 필요는 없다. 예를 들어 바이너리 프로토콜과 같은 다른 형식을 요구한다든지 하는 식으로 성능과 관련한 특수한 요구사항이 있을 수도(MAY) 있기 때문이다.
+
+
+<a name="42-guidelines-for-existing-services-and-versioning-of-services"></a>
+### 4.2 기존 서비스와 서비스 버전 관리를 위한 가이드라인
+
+단순히 이 가이드라인에 맞추기 위해 기존에 잘 운영하던 서비스를 뒤집을 필요는 없다. 해당 서비스는 다음 버전을 출시할 때마다 조금씩 가이드라인에 맞추면 된다(SHOULD). 새 API를 추가할 때 그 API는 반드시(SHOULD) 동일 버전의 다른 API와 같은 일관성을 유지해야 한다. 만약 가이드라인 1.0 버전에 맞춰 서비스를 개발했다면 새 API를 추가할 때 이 역시 가이드라인 1.0 버전에 맞춰야 한다(SHOULD). 그다음에 서비스의 차기 메이저 버전 업데이트 때 최신 가이드라인에 맞춰 점차 업그레이드를 하면 된다.
+
+
+<a name="43-requirements-language"></a>
+### 4.3 요구 언어
+
+이 글에 괄호를 이용해 명시한 키워드 "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", "OPTIONAL" 등은 [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) 문서에 근거해서 해석한다. RFC 2119 문서의 한국어 번역본은 [이곳](http://techhtml.github.io/rfc/RFC2119.html)에서 확인할 수 있다.
+
+
+<a name="44-license"></a>
+### 4.4 라이센스
+
+이 문서는 크리에이티브 커먼즈 저작자 표시 4.0 국제 라이센스에 따라 사용할 수 있다. 이 라이센스에 대해 좀 더 자세히 알고 싶다면 [http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/) 페이지를 참조하거나 이 주소(Creative Commons, PO Box 1866, Mountain View, CA 94042, USA)로 편지를 보내면 된다.
+
 
 ## 5 Taxonomy
 As part of onboarding to Microsoft REST API Guidelines, services MUST comply with the taxonomy defined below.
