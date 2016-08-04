@@ -55,7 +55,7 @@ Rob Howard (ASG)             | Peter Torr  (OSG)                      | Chris Mu
 		- [7.1    URL structure](#71-url-structure)
 		- [7.2    URL length](#72-url-length)
 		- [7.3    Canonical identifier](#73-canonical-identifier)
-		- [7.4    Supported verbs](#74-supported-verbs)
+		- [7.4    Supported methods](#74-supported-methods)
 		- [7.5    Standard request headers](#75-standard-request-headers)
 		- [7.6    Standard response headers](#76-standard-response-headers)
 		- [7.7    Custom headers](#77-custom-headers)
@@ -119,31 +119,33 @@ Rob Howard (ASG)             | Peter Torr  (OSG)                      | Chris Mu
 <a name="3-introduction"></a>
 ## 3 소개
 
-Developers access most Microsoft Cloud Platform resources via HTTP interfaces. Although each service typically provides language-specific frameworks to wrap their APIs, all of their operations eventually boil down to HTTP requests. Microsoft must support a wide range of clients and services and cannot rely on rich frameworks being available for every development environment. Thus a goal of these guidelines is to ensure Microsoft REST APIs can be easily and consistently consumed by any client with basic HTTP support.
+개발자는 대부분 HTTP 인터페이스를 통해 마이크로소프트 클라우드 플랫폼 리소스에 접속한다. 각 서비스는 보통 API를 사용하기 쉽게끔 언어별 프레임워크를 제공한다. 그렇긴 해도 결국 이것은 HTTP 리퀘스트의 집합으로 규정할 수 있다. 마이크로소프트는 반드시(MUST) 다양한 클라이언트와 서비스를 고려해야 하며 모든 개발환경에 사용 가능한 기능을 제공하는 리치 프레임워크에 의존해서는 안된다. 따라서 이 가이드라인은 기본적으로 HTTP 연결을 지원하는 어떤 클라이언트에서도 쉽고 일관적으로 마이크로소프트 REST API를 사용할 수 있게끔 하는데 있다.
 
-To provide the smoothest possible experience for developers, it's important to have these APIs follow consistent design guidelines, thus making using them easy and intuitive. This document establishes the guidelines to be followed by Microsoft REST API developers for developing such APIs consistently.
+가능한 한 편안한 개발 경험을 제공하기 위해서라면 가이드라인을 일관적으로 설계하는 것이 굉장히 중요하다. 그렇게 만들어진 가이드라인은 쉽고 직관적이다. 이 문서는 마이크로소프트 API 개발자들이 일관적으로 API를 개발할 수 있게끔 가이드라인을 제공한다.
 
-The benefits of consistency accrue in aggregate as well; consistency allows teams to leverage common code, patterns, documentation and design decisions.
+가이드라인이 일관적이라면 다양한 잇점이 생긴다. 이러한 일관성은 우리가 코드, 패턴, 문서화, 설계와 관련해서 공통점을 이끌어내는데 도움을 준다.
 
-These guidelines aim to achieve the following:
-- Define consistent practices and patterns for all API endpoints across Microsoft.
-- Adhere as closely as possible to accepted REST/HTTP best practices in the industry at-large.*
-- Make accessing Microsoft Services via REST interfaces easy for all application developers.
-- Allow service developers to leverage the prior work of other services to implement, test and document REST endpoints defined consistently.
-- Allow for partners (e.g., non-Microsoft entities) to use these guidelines for their own REST endpoint design.
+* 마이크로소프트가 제공하는 API 엔드포인트가 가져야 할 일정한 패턴과 관행을 정의하기.
+* 현업에서 대부분* 인정받은 REST/HTTP 사례들과 최대한 가깝게 맞추기.
+* 모든 애플리케이션 개발자들이 REST 인터페이스를 통해 마이크로소프트 서비스에 쉽게 접근할 수 있게끔 하기.
+* 다른 서비스에서 이미 구현하고 테스트하고 문서화한 REST 엔드포인트와 같은 형식으로 개발할 수 있게끔 하기.
+* 마이크로소프트 파트너가 직접 자신들만의 REST 엔드포인트를 설계할 때 이 가이드라인을 사용할 수 있게끔 하기.
 
-*Note: The guidelines are designed to align with building services which comply with the REST architectural style, though they do not address or require building services that follow the REST constraints. The term "REST" is used throughout this document to mean services that are in the spirit of REST rather than adhering to REST by the book.*
+이 가이드라인은 위와 같은 것들을 이룩할 수 있다.
+
+> * 참고: 이 가이드라인은 REST 아키텍처 스타일에 맞게 서비스를 만들고자 한다. 물론 서비스를 개발하는데 있어서 굳이 REST가 갖는 제약사항까지 따를 필요는 없다. 이 문서 전체를 통해 쓰인 "REST"라는 용어는 이론에 충실한 REST 보다는 좀 더 REST가 보여주는 철학에 가깝다.
+
 
 ### 3.1 Recommended reading
 Understanding the philosophy behind the REST Architectural Style is recommended for developing good HTTP-based services. If you are new to RESTful design, here are some good resources:
+
+[REST on Wikipedia][rest-on-wikipedia] -- Overview of common definitions and core ideas behind REST.
 
 [REST Dissertation][fielding] -- The chapter on REST in Roy Fielding's dissertation on Network Architecture, "Architectural Styles and the Design of Network-based Software Architectures"
 
 [RFC 7231][rfc-7231] -- Defines the specification for HTTP/1.1 semantics, and is considered the authoritative resource.
 
 [REST in Practice][rest-in-practice] -- Book on the fundamentals of REST.
-
-[REST on Wikipedia][rest-on-wikipedia] -- Overview of common definitions and core ideas behind REST.
 
 ## 4 Interpreting the guidelines
 ### 4.1 Application of the guidelines
@@ -248,19 +250,19 @@ An example of a URL containing a canonical identifier is:
 https://api.contoso.com/v1.0/people/7011042402/inbox
 ```
 
-### 7.4 Supported verbs
-Operations MUST use the proper HTTP verbs whenever possible, and operation idempotency MUST be respected.
+### 7.4 Supported methods
+Operations MUST use the proper HTTP methods whenever possible, and operation idempotency MUST be respected. HTTP methods are frequently referred to as the HTTP verbs. The terms are synonymous in this context, however the HTTP specification uses the term method.
 
-Below is a list of verbs that Microsoft REST services SHOULD support. Not all resources will support all verbs, but all resources using the verbs below MUST conform to their usage.  
+Below is a list of methods that Microsoft REST services SHOULD support. Not all resources will support all methods, but all resources using the methods below MUST conform to their usage.  
 
-Verb    | Description                                                                                                                | Is Idempotent
+Method    | Description                                                                                                                | Is Idempotent
 ------- | -------------------------------------------------------------------------------------------------------------------------- | -------------
-GET     | Return the current value of a resource                                                                                      | True
-PUT     | Replace a resource, or create a named resource, when applicable                                                               | True
-DELETE  | Delete a resource                                                                                                           | True
-POST    | Create a new resource based on the data provided, or submit a command                                                        | False
-HEAD    | Return metadata of a resource for a GET response. Resources that support the GET method MAY support the HEAD method as well | True
-PATCH   | Apply a partial update to a resource                                                                                        | False
+GET     | Return the current value of an object                                                                                      | True
+PUT     | Replace an object, or create a named object, when applicable                                                               | True
+DELETE  | Delete an object                                                                                                           | True
+POST    | Create a new object based on the data provided, or submit a command                                                        | False
+HEAD    | Return metadata of an object for a GET response. Resources that support the GET method MAY support the HEAD method as well | True
+PATCH   | Apply a partial update to an object                                                                                        | False
 OPTIONS | Get information about a request; see below for details.                                                                    | True
 
 <small>Table 1</small>
@@ -286,7 +288,7 @@ Where "server321" is the service-allocated server name.
 Services MAY also return the full metadata for the created item in the response.
 
 #### 7.4.2 PATCH
-PATCH has been standardized by IETF as the verb to be used for updating an existing resource incrementally (see [RFC 5789][rfc-5789]). Microsoft REST API Guidelines compliant APIs SHOULD support PATCH.  
+PATCH has been standardized by IETF as the method to be used for updating an existing object incrementally (see [RFC 5789][rfc-5789]). Microsoft REST API Guidelines compliant APIs SHOULD support PATCH.  
 
 #### 7.4.3 Creating resources via PATCH (UPSERT semantics)
 Services that allow callers to specify key values on create SHOULD support UPSERT semantics, and those that do MUST support creating resources using PATCH. Because PUT is defined as a complete replacement of the content, it is dangerous for clients to use PUT to modify data. Clients that do not understand (and hence ignore) properties on a resource are not likely to provide them on a PUT when trying to update a resource, hence such properties MAY be inadvertently removed. Services MAY optionally support PUT to update existing resources, but if they do they MUST use replacement semantics (that is, after the PUT, the resource's properties MUST match what was provided in the request, including deleting any server properties that were not provided).
@@ -296,7 +298,7 @@ Under UPSERT semantics, a PATCH call to a nonexistent resource is handled by the
 If a service does not support UPSERT, then a PATCH call against a resource that does not exist MUST result in an HTTP "409 Conflict" error.
 
 #### 7.4.4 Options and link headers
-OPTIONS allows a client to retrieve information about a resource, at a minimum by returning the Allow header denoting the valid method verbs for this resource.  
+OPTIONS allows a client to retrieve information about a resource, at a minimum by returning the Allow header denoting the valid methods for this resource.  
 
 In addition, services SHOULD include a Link header (see [RFC 5988][rfc-5988]) to point to documentation for the resource in question:
 
